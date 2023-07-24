@@ -28,12 +28,16 @@ public class CalculadoraDescuentos {
         return importeConDescuento;
     }
 
-
     public Double getDescuentoPorcentual() {
         return descuentoPorcentual;
     }
 
     public void setDescuentoPorcentual(Double descuentoPorcentual) {
+        if(descuentoValido(descuentoPorcentual)){
+            System.out.println("Porcentaje de descuento no valido");
+            setDescuentoPorcentual(0.0);
+            return;
+        }
         this.descuentoPorcentual = descuentoPorcentual;
         actualizarImporteConDescuento();
     }
@@ -44,5 +48,9 @@ public class CalculadoraDescuentos {
 
     private void actualizarImporteConDescuento() {
         importeConDescuento = importeBruto - calcularDescuento(importeBruto, descuentoPorcentual);
+    }
+    
+    private Boolean descuentoValido(Double descuentoPorcentual){
+        return descuentoPorcentual<0.0 || descuentoPorcentual>100.0;
     }
 }

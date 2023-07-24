@@ -75,14 +75,22 @@ public class CalculadoraDescuentosTest {
      */
     @Test
     public void debeHacerDescuentoPorcentual() {
-        // Descuento
+        System.out.println("Descuento valido");
         Double descuento = 33.3;
         instance.setDescuentoPorcentual(descuento);
         assertEquals(VALOR_DEFAULT * (1 - (descuento / 100)), instance.getImporteConDescuento(), 0.01);
         // Descuento negativo (aumento)
-        descuento = -25.5;
+        descuento = -20.5;
         instance.setDescuentoPorcentual(descuento);
-        assertEquals(VALOR_DEFAULT * (1 - (descuento / 100)), instance.getImporteConDescuento(), 0.01);
+        assertEquals(VALOR_DEFAULT, instance.getImporteConDescuento(), 0.01);
+        // Descuento mas del maximo
+        descuento = 110.5;
+        instance.setDescuentoPorcentual(descuento);
+        assertEquals(VALOR_DEFAULT, instance.getImporteConDescuento(), 0.01);
+        // Descuento maximo
+        descuento = 100.0;
+        instance.setDescuentoPorcentual(descuento);
+        assertEquals(0, instance.getImporteConDescuento(), 0.01);
         // Sin descuento
         descuento = 0.0;
         instance.setDescuentoPorcentual(descuento);
